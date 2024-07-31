@@ -1,4 +1,6 @@
 using Event.Api.Context;
+using Event.Api.Repository.Implementation;
+using Event.Api.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +14,11 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("EventMasterDbConnection");
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+//Inject the services
+builder.Services.AddScoped<IEventItemRepository, EventItemRepository>();
 
 var app = builder.Build();
 
@@ -26,6 +30,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(opt => {
+    opt.AllowAnyOrigin();
+    opt.AllowAnyMethod();
+    opt.AllowAnyHeader();
+});
 
 app.UseAuthorization();
 
