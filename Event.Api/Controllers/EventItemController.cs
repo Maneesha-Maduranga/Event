@@ -1,7 +1,6 @@
 ﻿using Event.Api.Models.Domain;
 using Event.Api.Models.Dto.EventItem;
 using Event.Api.Repository.Interface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Event.Api.Controllers
@@ -22,14 +21,11 @@ namespace Event.Api.Controllers
         {
             var newEventItem = new EventItem
             {
-                Title = request.Title,
-                Capacity = request.Capacity,
-                Date = request.Date,
-                Description = request.Description,
-                IsFull = request.IsFull,
-                Location = request.Location,
-                Organizer = request.Organizer,
-                Price = request.Price,
+               Capacity = request.Capacity,
+               Title = request.Title,
+               Status = request.Status,
+               Location = request.Location,
+              
             };
 
             await eventItemRepository.CreateEventItem(newEventItem);
@@ -37,15 +33,11 @@ namespace Event.Api.Controllers
             //Map Through Dto and create new Respnose
             var response = new ReadEventItemDto
             {
-                id = newEventItem.id,
-                Title = newEventItem.Title,
-                Price = newEventItem.Price,
-                Capacity = newEventItem.Capacity,
-                Description = newEventItem.Description,
-                Date = newEventItem.Date,
-                IsFull = newEventItem.IsFull,
-                Location = newEventItem.Location,
-                Organizer = newEventItem.Organizer,
+               id = newEventItem.id,
+               Capacity = newEventItem.Capacity,
+               Location = newEventItem.Location,
+               Status = newEventItem.Status,
+               Title = newEventItem.Title
             };
 
             return Ok(response);
@@ -63,14 +55,10 @@ namespace Event.Api.Controllers
                 response.Add(new ReadEventItemDto 
                 { 
                     id= eventItem.id,
-                    Title= eventItem.Title,
-                    Price= eventItem.Price,
                     Capacity = eventItem.Capacity,
-                    Organizer = eventItem.Organizer,
                     Location = eventItem.Location,
-                    Date = eventItem.Date,
-                    Description = eventItem.Description,
-                    IsFull = eventItem.IsFull,
+                    Status = eventItem.Status,
+                    Title =  eventItem.Title
                 });
             }
 
@@ -94,13 +82,9 @@ namespace Event.Api.Controllers
             {
                 id = isEventItem.id,
                 Capacity = isEventItem.Capacity,
-                Date = isEventItem.Date,
-                Description = isEventItem.Description,
-                IsFull = isEventItem.IsFull,
                 Location = isEventItem.Location,
-                Organizer = isEventItem.Organizer,
-                Price = isEventItem.Price,
-                Title = isEventItem.Title
+                Title = isEventItem.Title,
+                Status = isEventItem.Status
             };
 
             return Ok(response);
@@ -113,14 +97,10 @@ namespace Event.Api.Controllers
             var newEventItem = new EventItem
             {
                 id = id,
-                Title = request.Title,
                 Capacity = request.Capacity,
-                Description = request.Description,
-                Date = request.Date,
-                IsFull = request.IsFull,
                 Location = request.Location,
-                Organizer = request.Organizer,
-                Price = request.Price,
+                Status = request.Status,
+                Title = request.Title
 
             };
 
@@ -134,14 +114,10 @@ namespace Event.Api.Controllers
             var response = new ReadEventItemDto
            {
                 id = isEventItem.id,
-                Capacity = isEventItem.Capacity,
-                Date = isEventItem.Date,
-                Description = isEventItem.Description,
-                IsFull = isEventItem.IsFull,
-                Location = isEventItem.Location,
-                Organizer = isEventItem.Organizer,
-                Price = isEventItem.Price,
-                Title = isEventItem.Title,
+               Capacity = isEventItem.Capacity,   
+               Title =  isEventItem.Title,
+               Status = isEventItem.Status,
+               Location = isEventItem.Location
 
             };
             return Ok(response);

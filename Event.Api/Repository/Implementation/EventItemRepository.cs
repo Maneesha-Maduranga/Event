@@ -37,14 +37,12 @@ namespace Event.Api.Repository.Implementation
            if (exEventItem != null)
             {
 
-                exEventItem.Price = eventItem.Price;
-                exEventItem.Location = eventItem.Location;
-                exEventItem.Price = eventItem.Price;
                 exEventItem.Title = eventItem.Title;
                 exEventItem.Location = eventItem.Location;
+                exEventItem.Status = eventItem.Status;
+                exEventItem.Date = eventItem.Date;
                 exEventItem.Capacity = eventItem.Capacity;
-                exEventItem.Description = eventItem.Description;
-                eventItem.IsFull = eventItem.IsFull;
+               
 
                
                 dbContext.EventItems.Update(exEventItem);
