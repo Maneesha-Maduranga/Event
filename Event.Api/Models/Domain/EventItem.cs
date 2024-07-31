@@ -1,6 +1,6 @@
 ﻿namespace Event.Api.Models.Domain
 {
-    public class Event
+    public class EventItem
     {
         public Guid id { get; set; }
         public string Title { get; set; }
